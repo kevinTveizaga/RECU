@@ -7,9 +7,11 @@ package com.mycompany.recuperacion;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,10 +20,17 @@ import java.util.logging.Logger;
  * @author Kero
  */
 public class LectorDeDocumentos {
-    private String readText;
+    private ArrayList<String> palabras;
+    private ArrayList<String> palabrasVacias;
+    
+    public LectorDeDocumentos() {
+        palabrasVacias = new ArrayList<>();
+        palabras = new ArrayList<>();
+    }
+    
     public boolean readDocument(String filePath) {
         boolean result = false; 
-        readText = "";
+        
         if (!filePath.isEmpty()) {
             File file = new File(filePath);
             if (file.isFile()) {
@@ -29,7 +38,7 @@ public class LectorDeDocumentos {
                     BufferedReader reader = new BufferedReader(new FileReader(file));
                     String text="";
                     while((text = reader.readLine()) != null) {
-                        readText += text;
+                        separarPalabras(text);
                     }                    
                 } catch (IOException ex) {
                     Logger.getLogger(LectorDeDocumentos.class.getName()).log(Level.SEVERE, null, ex);
@@ -40,13 +49,35 @@ public class LectorDeDocumentos {
         return result;
     }    
     
-    public String getReadText() {
-        return readText;
+    public boolean agregarPalabrasVacias(String urlPath) {
+        boolean result = false; 
+        if (!urlPath.isEmpty()) {
+            File file = new File(urlPath);
+            if (file.isFile()) {
+                try {
+                    String palabraVacia;
+                    BufferedReader reader = new BufferedReader(new FileReader(file));
+                    while((palabraVacia = reader.readLine()) != null) {
+                        palabrasVacias.add(palabraVacia);
+                    }                    
+                } catch (IOException ex) {
+                    Logger.getLogger(LectorDeDocumentos.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                result = palabrasVacias.isEmpty();
+            }
+        }
+        return result;
+    }
+    
+    public List<String> getPalabrasVacias() {
+        return palabrasVacias;
     }
 
-    public String[] refinarDocumento(String readText) {
-        return readText.trim().split(" ");
+    public List<String> getPalabras() {
+        return palabras;
     }
-    
-    
+    private void separarPalabras(String lineaTexto) {
+        String[] frase = lineaTexto.split("\\s");
+        this.palabras.addAll(Arrays.asList(frase));
+    }
 }
