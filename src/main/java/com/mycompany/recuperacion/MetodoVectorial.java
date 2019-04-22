@@ -9,6 +9,6 @@ package com.mycompany.recuperacion;
  *
  * @author Kero
  */
-public class Vectorial {
+public class MetodoVectorial {
     
 }

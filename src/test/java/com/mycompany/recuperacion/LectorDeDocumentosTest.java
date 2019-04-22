@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,35 +20,47 @@ import org.junit.Test;
  */
 public class LectorDeDocumentosTest {
     
-    String filePath = "C:\\Users\\Kero\\Documents\\NetBeansProjects\\recuperacion\\src\\main\\java\\com\\mycompany\\archivos\\textoCorto.txt";
-    LectorDeDocumentos lector;
+    private String textoCortoPath;
+    private String palabrasVaciasPath;
+    private LectorDeDocumentos lector;
 
+    public LectorDeDocumentosTest() {
+        textoCortoPath = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\archivos\\textoCorto.txt";
+        palabrasVaciasPath = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\archivos\\palabrasVacias.txt";
+    }
+    
     @Before
     public void setUp() {
         lector = new LectorDeDocumentos();
+        lector.agregarPalabrasVacias(palabrasVaciasPath);
     }
     
     @Test
     public void testReadDocument() {
-        boolean lectura = lector.readDocument(filePath);
+        lector.readDocument(textoCortoPath);
         assertEquals(7,lector.getPalabras().size());
-        assertTrue(lectura);
     }   
     
     @Test
     public void testGetPalabras() {
-        lector.readDocument(filePath);
+        lector.readDocument(textoCortoPath);
+        lector.refinarPalabras();
         List<String> result = lector.getPalabras();
-        List<String> expected = new ArrayList(Arrays.asList("Este","es","un","texto","de","prueba","corto"));
+        List<String> expected = new ArrayList(Arrays.asList("Este","texto","prueba","corto"));
         assertTrue(result.equals(expected));
     }
     
     @Test
     public void testAgregarPalabrasVacias(){
-        String urlPath = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\main\\java\\com\\mycompany\\archivos\\palabrasVacias.txt";
+        String urlPath = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\archivos\\palabrasVacias.txt";
         boolean cargado = lector.agregarPalabrasVacias(urlPath);
-        assertTrue(cargado);
+        assertFalse(cargado);
     }
     
-    
+    @Test
+    public void testLimpiarLista() {
+        lector.readDocument(textoCortoPath);
+        lector.limpiarLista();
+        assertEquals(0, lector.getPalabras().size());
+    }
 }

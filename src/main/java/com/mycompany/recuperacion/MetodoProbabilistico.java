@@ -9,6 +9,6 @@ package com.mycompany.recuperacion;
  *
  * @author Kero
  */
-public class Probabilistico {
+public class MetodoProbabilistico {
     
 }
