@@ -18,9 +18,8 @@ public class MetodoBooleano {
     private final List<List<String>> documentos;
     private final List<String> terminos;
     
-    public MetodoBooleano(String palabrasVacias) {
+    public MetodoBooleano() {
         lector = new LectorDeDocumentos();
-        lector.agregarPalabrasVacias(palabrasVacias);
         documentos = new ArrayList<>();
         terminos = new ArrayList<>();
     }
@@ -30,10 +29,14 @@ public class MetodoBooleano {
     }
 
     public void agregarDocumento(String urlDocumento) {
-        lector.readDocument(urlDocumento);
+        lector.leerDocumento(urlDocumento);
         lector.refinarPalabras();
         documentos.add(new ArrayList<>(lector.getPalabras()));
         lector.limpiarLista();
+    }
+    
+    public boolean agregarPalabrasVacias(String palabras) {
+        return lector.agregarPalabrasVacias(palabras);
     }
     
     public List<List<String>> getDocumentos() {
@@ -62,5 +65,11 @@ public class MetodoBooleano {
             }
         }
         return result;
+    }
+
+    public String[] consulta(String consulta) {
+        String[] resultado = new String[documentos.size()];
+        
+        return resultado;
     }
 }

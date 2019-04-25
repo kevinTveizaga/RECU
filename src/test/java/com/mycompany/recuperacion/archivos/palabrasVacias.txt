@@ -1,4 +1,4 @@
-﻿a
+a
 acá
 ahí
 ajena
@@ -25,9 +25,11 @@ así
 atrás
 aun
 aunque
+b
 bajo
 bastante
 bien
+c
 cabe
 cada
 casi
@@ -57,6 +59,7 @@ cuantos
 cuanta
 cuantos
 cuantas
+d
 de
 dejar
 del
@@ -69,6 +72,7 @@ dentro
 desde
 donde
 dos
+e
 el
 él
 ella
@@ -109,12 +113,15 @@ estes
 estos
 estoy
 etc
+f
 fin
 fue
 fueron
 fui
 fuimos
+g
 gueno
+h
 ha
 hace
 haces
@@ -125,6 +132,7 @@ hacer
 hacia
 hago
 hasta
+i
 incluso
 intenta
 intentas
@@ -134,14 +142,18 @@ intentan
 intentar
 intento
 ir
+j
 jamás
 junto
 juntos
+k
+l
 la
 lo
 las
 los
 largo
+m
 más
 me
 menos
@@ -167,6 +179,7 @@ mucho
 muchos
 muy
 nada
+n
 ni
 ningún
 ningúna
@@ -182,11 +195,13 @@ nuestras
 nuestro
 nuestros
 nunca
+o
 os
 otra
 otro
 otras
 otros
+p
 para
 parecer
 pero
@@ -210,6 +225,7 @@ puede
 pueden
 puedo
 pues
+q
 que
 qué
 querer
@@ -219,6 +235,8 @@ quienesquiera
 quienquiera
 quizá
 quizás
+r
+s
 sabe
 sabes
 saben
@@ -252,6 +270,7 @@ suya
 suyas
 suyo
 suyos
+t
 tal
 tales
 también
@@ -292,6 +311,7 @@ tuyo
 tuyos
 último
 ultimo
+u
 un
 una
 unas
@@ -306,6 +326,7 @@ usar
 uso
 usted
 ustedes
+v
 va
 van
 vais
@@ -322,6 +343,9 @@ vuestra
 vuestras
 vuestro
 vuestros
+w
+x
 y
 ya
 yo
+z

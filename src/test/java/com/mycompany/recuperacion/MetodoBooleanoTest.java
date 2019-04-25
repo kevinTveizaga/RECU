@@ -10,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.Before;
 
@@ -20,16 +21,12 @@ import org.junit.Before;
 public class MetodoBooleanoTest {
     
     private MetodoBooleano metodo;
-    private List<String> pDocumento;
-    private List<String> sDocumento;
-    private List<String> tDocumento;
-    private List<String> cDocumento;
     
-    private String urlPDocumento;
-    private String urlSDocumento;
-    private String urlTDocumento;
-    private String urlCDocumento;
-    private String palabrasVacias;
+    private final String urlPDocumento;
+    private final String urlSDocumento;
+    private final String urlTDocumento;
+    private final String urlCDocumento;
+    private final String palabrasVacias;
 
     public MetodoBooleanoTest() {
         this.urlPDocumento = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\documentos\\Documento1.txt";
@@ -41,7 +38,8 @@ public class MetodoBooleanoTest {
     
     @Before
     public void setUp() {
-        metodo = new MetodoBooleano(palabrasVacias);
+        metodo = new MetodoBooleano();
+        metodo.agregarPalabrasVacias(palabrasVacias);
         metodo.agregarDocumento(urlPDocumento);
         metodo.agregarDocumento(urlSDocumento);
         metodo.agregarDocumento(urlTDocumento);
@@ -65,6 +63,11 @@ public class MetodoBooleanoTest {
     }
     
     @Test
+    public void testAgregarPalabrasVacias() {
+        assertTrue(metodo.agregarPalabrasVacias(palabrasVacias));
+    }
+    
+    @Test
     public void testCrearMatriz() {
         metodo.eliminarRepetidos();
         int[][] result = metodo.crearMatriz();
@@ -81,4 +84,12 @@ public class MetodoBooleanoTest {
             {0,0,0,1}};
         assertArrayEquals(result,expected);
     }
+    
+//    @Test
+//    public void testConsulta() {
+//        String consulta = "";
+//        String[] resultado = metodo.consulta(consulta);
+//        String[] expected = {"","","",""};
+//        assertArrayEquals(expected,resultado);
+//    }
 }
