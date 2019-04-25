@@ -183,9 +183,9 @@ public class MetodoVectorialTest {
         metodo.crearMatrizPesos();
         metodo.crearMatrizPesosConsulta();
         List<String> resultado = new ArrayList<>();
-        for(Documento doc: metodo.calcularSimilaridad()) {
+        metodo.calcularSimilaridad().forEach((doc) -> {
             resultado.add(doc.getName());
-        }
+        });
         List<String> expected = new ArrayList<>(Arrays.asList("D1","D2","D3","D4"));
         assertArrayEquals(expected.toArray(),resultado.toArray());
     }

@@ -84,12 +84,5 @@ public class MetodoBooleanoTest {
             {0,0,0,1}};
         assertArrayEquals(result,expected);
     }
-    
-//    @Test
-//    public void testConsulta() {
-//        String consulta = "";
-//        String[] resultado = metodo.consulta(consulta);
-//        String[] expected = {"","","",""};
-//        assertArrayEquals(expected,resultado);
-//    }
+
 }
