@@ -45,6 +45,7 @@ public class MetodoVectorialTest {
         metodo.addDocument(doc2);
         metodo.addDocument(doc3);
         metodo.addDocument(doc4);
+        metodo.nombrarDocumentos();
         metodo.cargarTerminos();
         metodo.agregarConsulta("el anillo que fue parte de la historia");
     }
@@ -148,5 +149,44 @@ public class MetodoVectorialTest {
                             {0}};
         assertArrayEquals(expected, resultado);
     }
+    @Test
+    public void testNombrarDocumentos() {
+        metodo.nombrarDocumentos();
+        List<Documento> result = metodo.getDocuments();
+        assertEquals("D3", result.get(2).getName());
+    }
     
+    @Test
+    public void testCrearMatrizPesosConsulta() {
+        metodo.crearTfConsulta();
+        metodo.llenarIdf();
+        metodo.crearMatrizPesosConsulta();
+        float[][] resultado = metodo.getMatrizPesosConsulta();
+        float[][] expected = {{0.301f},
+                              {0.0f},
+                              {0.301f},
+                              {0.0f},
+                              {0.125f},
+                              {0.0f},
+                              {0.0f},
+                              {0.0f},
+                              {0.0f},
+                              {0.0f}};
+        assertArrayEquals(expected,resultado);
+    }
+    
+    @Test
+    public void testCalcularSimilaridad() {
+        metodo.crearTF();
+        metodo.llenarIdf();
+        metodo.crearTfConsulta();
+        metodo.crearMatrizPesos();
+        metodo.crearMatrizPesosConsulta();
+        List<String> resultado = new ArrayList<>();
+        for(Documento doc: metodo.calcularSimilaridad()) {
+            resultado.add(doc.getName());
+        }
+        List<String> expected = new ArrayList<>(Arrays.asList("D1","D2","D3","D4"));
+        assertArrayEquals(expected.toArray(),resultado.toArray());
+    }
 }
