@@ -19,7 +19,7 @@ import org.junit.Test;
  * @author Kero
  */
 public class LectorDeDocumentosTest {
-    
+
     private final String textoCortoPath;
     private final String palabrasVaciasPath;
     private LectorDeDocumentos lector;
@@ -28,54 +28,54 @@ public class LectorDeDocumentosTest {
         textoCortoPath = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\archivos\\textoCorto.txt";
         palabrasVaciasPath = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\archivos\\palabrasVacias.txt";
     }
-    
+
     @Before
     public void setUp() {
         lector = new LectorDeDocumentos();
         lector.agregarPalabrasVacias(palabrasVaciasPath);
     }
-    
+
     @Test
     public void testLeerDocumento() {
         lector.leerDocumento(textoCortoPath);
-        assertEquals(7,lector.getPalabras().size());
-    }   
-    
+        assertEquals(7, lector.getPalabras().size());
+    }
+
     @Test
     public void testGetPalabras() {
         lector.leerDocumento(textoCortoPath);
         lector.refinarPalabras();
         List<String> result = lector.getPalabras();
-        List<String> expected = new ArrayList(Arrays.asList("Este","texto","prueba","corto"));
+        List<String> expected = new ArrayList(Arrays.asList("Este", "texto", "prueba", "corto"));
         assertTrue(result.equals(expected));
     }
-    
+
     @Test
-    public void testAgregarPalabrasVacias(){
+    public void testAgregarPalabrasVacias() {
         String urlPath = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\archivos\\palabrasVacias.txt";
         boolean cargado = lector.agregarPalabrasVacias(urlPath);
         assertTrue(cargado);
     }
-    
+
     @Test
     public void testLimpiarLista() {
         lector.leerDocumento(textoCortoPath);
         lector.limpiarLista();
         assertEquals(0, lector.getPalabras().size());
     }
-    
+
     @Test
     public void testRefinarPalabras() {
         lector.leerDocumento(textoCortoPath);
         lector.refinarPalabras();
-        List<String> expected = new ArrayList<>(Arrays.asList("Este","texto", "prueba","corto"));
+        List<String> expected = new ArrayList<>(Arrays.asList("Este", "texto", "prueba", "corto"));
         assertArrayEquals(expected.toArray(), lector.getPalabras().toArray());
     }
-    
-    @Test 
+
+    @Test
     public void testLeerConsulta() {
         lector.leerConsulta("un ejemplo de consulta corta e interesante");
-        List<String> expected = new ArrayList<>(Arrays.asList("ejemplo","consulta","corta", "interesante"));
+        List<String> expected = new ArrayList<>(Arrays.asList("ejemplo", "consulta", "corta", "interesante"));
         assertArrayEquals(expected.toArray(), lector.getPalabras().toArray());
     }
 }

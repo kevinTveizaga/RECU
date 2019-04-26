@@ -19,9 +19,9 @@ import org.junit.Before;
  * @author kero
  */
 public class MetodoBooleanoTest {
-    
+
     private MetodoBooleano metodo;
-    
+
     private final String urlPDocumento;
     private final String urlSDocumento;
     private final String urlTDocumento;
@@ -35,7 +35,7 @@ public class MetodoBooleanoTest {
         this.urlCDocumento = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\documentos\\Documento4.txt";
         this.palabrasVacias = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\archivos\\palabrasVacias.txt";
     }
-    
+
     @Before
     public void setUp() {
         metodo = new MetodoBooleano();
@@ -45,44 +45,44 @@ public class MetodoBooleanoTest {
         metodo.agregarDocumento(urlTDocumento);
         metodo.agregarDocumento(urlCDocumento);
     }
-    
+
     @Test
     public void testAgregarDocumento() {
         int result = metodo.getDocumentos().size();
         assertEquals(4, result);
     }
-    
+
     @Test
     public void testEliminarRepetidos() {
         List<String> result = metodo.eliminarRepetidos();
         List<String> expected = new ArrayList<>(Arrays.asList(
-                "historia", "mundos","anillo","unico",
-                "parte","vivo", "residia",
-                "conocido","necesario","dramatica"));
+                "historia", "mundos", "anillo", "unico",
+                "parte", "vivo", "residia",
+                "conocido", "necesario", "dramatica"));
         assertArrayEquals(result.toArray(), expected.toArray());
     }
-    
+
     @Test
     public void testAgregarPalabrasVacias() {
         assertTrue(metodo.agregarPalabrasVacias(palabrasVacias));
     }
-    
+
     @Test
     public void testCrearMatriz() {
         metodo.eliminarRepetidos();
         int[][] result = metodo.crearMatriz();
         int[][] expected = {
-            {1,1,0,0},
-            {1,0,0,0},
-            {1,1,0,0},
-            {1,0,0,0},
-            {0,1,1,1},
-            {0,0,1,0},
-            {0,0,1,0},
-            {0,0,0,1},
-            {0,0,0,1},
-            {0,0,0,1}};
-        assertArrayEquals(result,expected);
+            {1, 1, 0, 0},
+            {1, 0, 0, 0},
+            {1, 1, 0, 0},
+            {1, 0, 0, 0},
+            {0, 1, 1, 1},
+            {0, 0, 1, 0},
+            {0, 0, 1, 0},
+            {0, 0, 0, 1},
+            {0, 0, 0, 1},
+            {0, 0, 0, 1}};
+        assertArrayEquals(result, expected);
     }
 
 }
