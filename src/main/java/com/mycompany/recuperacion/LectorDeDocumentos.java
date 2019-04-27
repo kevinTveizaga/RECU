@@ -35,7 +35,7 @@ public class LectorDeDocumentos {
             if (file.isFile()) {
                 try {
                     BufferedReader reader = new BufferedReader(new FileReader(file));
-                    String text="";
+                    String text;
                     while((text = reader.readLine()) != null) {
                         separarPalabras(text);
                     }                    

@@ -8,7 +8,6 @@ package com.mycompany.recuperacion;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -23,11 +22,11 @@ public class MetodoProbabilistico {
     List<Documento> documentos;
     LectorDeDocumentos lector;
     List<String> terminos;
-    String NOMBRE_DOCUMENTO= "D";
+    String NOMBRE_DOCUMENTO = "D";
     Map<String, Integer> freqTerminConsulta;
     List<Float> pesos;
     int[][] matBin;
-    
+
     public MetodoProbabilistico() {
         lector = new LectorDeDocumentos();
         documentos = new ArrayList<>();
@@ -50,7 +49,7 @@ public class MetodoProbabilistico {
     }
 
     List<String> cargarTerminos() {
-         for (Documento terminoAux : documentos) {
+        for (Documento terminoAux : documentos) {
             for (String elemento : terminoAux.getPalabras()) {
                 if (!terminos.contains(elemento)) {
                     terminos.add(elemento);
@@ -71,12 +70,12 @@ public class MetodoProbabilistico {
     boolean agregarPalabrasVacias(String palabras) {
         return lector.agregarPalabrasVacias(palabras);
     }
-    
+
     public int[][] crearMatrizBinaria() {
         matBin = new int[terminos.size()][documentos.size()];
-        for(int doc = 0; doc < documentos.size(); doc++) {
-            for(int indTerminos = 0; indTerminos < terminos.size(); indTerminos++){
-                if(documentos.get(doc).getPalabras().contains(terminos.get(indTerminos))) {
+        for (int doc = 0; doc < documentos.size(); doc++) {
+            for (int indTerminos = 0; indTerminos < terminos.size(); indTerminos++) {
+                if (documentos.get(doc).getPalabras().contains(terminos.get(indTerminos))) {
                     matBin[indTerminos][doc] = 1;
                 } else {
                     matBin[indTerminos][doc] = 0;
@@ -92,13 +91,13 @@ public class MetodoProbabilistico {
         lector.getPalabras().stream().filter((cTermino) -> (terminos.contains(cTermino))).forEachOrdered((cTermino) -> {
             int counter = 0;
             int index = 0;
-            while(index< documentos.size()) {
-                if(documentos.get(index).getPalabras().contains(cTermino)){
+            while (index < documentos.size()) {
+                if (documentos.get(index).getPalabras().contains(cTermino)) {
                     counter++;
                 }
                 index++;
             }
-                
+
             freqTerminConsulta.put(cTermino, counter);
         });
         lector.limpiarLista();
@@ -109,12 +108,12 @@ public class MetodoProbabilistico {
     }
 
     void calcularPeso() {
-        for(String termino : freqTerminConsulta.keySet()) {
+        for (String termino : freqTerminConsulta.keySet()) {
             float ni = freqTerminConsulta.get(termino);
             float n = documentos.size();
             NumberFormat formatter = new DecimalFormat("0.000");
-            float peso = (float) Math.log10((1-(ni/n))/(ni/n));
-            float resultado = Float.parseFloat(formatter.format(peso).replace(',', '.')) ; 
+            float peso = (float) Math.log10((1 - (ni / n)) / (ni / n));
+            float resultado = Float.parseFloat(formatter.format(peso).replace(',', '.'));
             pesos.add(resultado);
         }
     }
@@ -125,10 +124,10 @@ public class MetodoProbabilistico {
 
     List<Documento> calcSimProb() {
         List<Documento> resultado = new ArrayList<>();
-        for(int iDoc = 0; iDoc < documentos.size(); iDoc++ ) {
+        for (int iDoc = 0; iDoc < documentos.size(); iDoc++) {
             List<String> keys = new ArrayList<>(freqTerminConsulta.keySet());
             float suma = 0.0f;
-            for(int iPeso = 0; iPeso < pesos.size(); iPeso++) {
+            for (int iPeso = 0; iPeso < pesos.size(); iPeso++) {
                 int iTerm = terminos.indexOf(keys.get(iPeso));
                 suma = suma + (pesos.get(iPeso) * matBin[iTerm][iDoc]);
             }
