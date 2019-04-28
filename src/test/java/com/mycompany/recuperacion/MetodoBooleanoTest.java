@@ -168,7 +168,9 @@ public class MetodoBooleanoTest {
     
     @Test
     public void testClasificarSigno() {
-        metodo.clasificarSigno(new String[]{"1100", "and", "1100"});
+        metodo.eliminarRepetidos();
+        metodo.crearMatriz();
+        metodo.clasificarSigno(new String[]{"historia", "and", "anillo"});
         assertEquals("and", metodo.getSignos().peek());
         assertEquals("1100", metodo.getNumeros().peek());
     }
@@ -179,6 +181,4 @@ public class MetodoBooleanoTest {
         String[] expected = new String[] {"D1","D3"};
         assertArrayEquals(expected, resultado);
     }
-    
-    
 }

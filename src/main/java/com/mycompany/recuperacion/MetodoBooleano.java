@@ -100,9 +100,7 @@ public class MetodoBooleano {
                         resAct=calcularExpresion(term1,term2,signos.peek());
                         signos.poll();
                     }
-                    String resultadoActualString2= String.valueOf(resAct);
-                    numeros.add(resultadoActualString2);
-
+                    numeros.add(resAct);
                 }
                 resultado = numeros.peek();
             }
