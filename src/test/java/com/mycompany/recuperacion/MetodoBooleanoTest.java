@@ -44,6 +44,7 @@ public class MetodoBooleanoTest {
         metodo.agregarDocumento(urlSDocumento);
         metodo.agregarDocumento(urlTDocumento);
         metodo.agregarDocumento(urlCDocumento);
+        metodo.nombrarDocumentos();
     }
 
     @Test
@@ -84,5 +85,100 @@ public class MetodoBooleanoTest {
             {0, 0, 0, 1}};
         assertArrayEquals(result, expected);
     }
-
+    
+    @Test
+    public void testConsulta() {
+        metodo.eliminarRepetidos();
+        metodo.crearMatriz();
+        String consulta = "anillo and unico";
+        String[] resultado = metodo.consultar(consulta);
+        String[] expected = {"D1"};
+        assertArrayEquals(expected, resultado);
+    }
+   
+    @Test
+    public void testConsulta1() {
+        metodo.eliminarRepetidos();
+        metodo.crearMatriz();
+        String consulta = "anillo and ( unico or historia )";
+        String[] resultado = metodo.consultar(consulta);
+        String[] expected = {"D1","D2"};
+        assertArrayEquals(expected, resultado);
+    }
+    
+    @Test
+    public void testConsulta2() {
+        metodo.eliminarRepetidos();
+        metodo.crearMatriz();
+        String consulta = "( anillo and parte ) or ( unico or historia )";
+        String[] resultado = metodo.consultar(consulta);
+        String[] expected = {"D1","D2"};
+        assertArrayEquals(expected, resultado);
+    }
+    
+    @Test
+    public void testConsulta3() {
+        metodo.eliminarRepetidos();
+        metodo.crearMatriz();
+        String consulta = "vivo and residia";
+        String[] resultado = metodo.consultar(consulta);
+        String[] expected = {"D3"};
+        assertArrayEquals(expected, resultado);
+    }
+  
+    @Test
+    public void testCalcularExpresionAnd() {
+        String result = metodo.calcularExpresion("1100","1010","and");
+        assertEquals("1000",result);
+    }
+  
+    @Test
+    public void testCalcularExpresionOr() {
+        String result = metodo.calcularExpresion("1100","1010","or");
+        assertEquals("1110",result);
+    }
+    
+    @Test
+    public void testCalcularAnd() {
+        String result = metodo.calcularAnd("1101", "1001");
+        assertEquals("1001", result);
+    }
+    
+    @Test
+    public void testCalcularAnd1() {
+        String result = metodo.calcularAnd("1100", "1001");
+        assertEquals("1000", result);
+    }
+    @Test
+    public void testCalcularAnd2() {
+        String result = metodo.calcularAnd("1111", "0111");
+        assertEquals("0111", result);
+    }
+    
+    @Test
+    public void testCalcularOr() {
+        String result = metodo.calcularOr("1100","1010");
+        assertEquals("1110", result);
+    }
+    @Test
+    public void testCalcularOr2() {
+        String result = metodo.calcularOr("1100","1000");
+        assertEquals("1100", result);
+    }
+    
+    @Test
+    public void testClasificarSigno() {
+        metodo.clasificarSigno(new String[]{"1100", "and", "1100"});
+        assertEquals("and", metodo.getSignos().peek());
+        assertEquals("1100", metodo.getNumeros().peek());
+    }
+    
+    @Test
+    public void testEscogerResultado() {
+        String[] resultado = metodo.escogerDocumento("1010");
+        String[] expected = new String[] {"D1","D3"};
+        assertArrayEquals(expected, resultado);
+    }
+    
+    
 }
