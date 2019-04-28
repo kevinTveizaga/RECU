@@ -211,9 +211,7 @@ public class MetodoBooleano {
                     String term2 = numeros.peek();
                     numeros.poll();
                     term = calcularExpresion(term1, term2, signoRevisado);
-
-                    String numero = String.valueOf(term);
-                    numeros.add(numero);
+                    numeros.add(term);
                 }
             }
         }
