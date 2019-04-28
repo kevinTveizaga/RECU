@@ -17,7 +17,7 @@ class Documento implements Comparable<Documento> {
     String name;
     float peso;
     List<String> palabras;
-    
+
     void setURL(String URL) {
         this.URL = URL;
     }
@@ -45,7 +45,7 @@ class Documento implements Comparable<Documento> {
     @Override
     public int compareTo(Documento o) {
         int result = 0;
-        if(this.peso < o.peso) {
+        if (this.peso < o.peso) {
             result = 1;
         } else {
             if (this.peso > o.peso) {
@@ -62,5 +62,5 @@ class Documento implements Comparable<Documento> {
     void setPeso(float d) {
         peso = d;
     }
-    
+
 }
