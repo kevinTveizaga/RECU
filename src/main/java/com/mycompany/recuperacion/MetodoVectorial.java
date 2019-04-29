@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * @author Kero
  */
-public class MetodoVectorial {
+public class MetodoVectorial implements Metodo {
 
     LectorDeDocumentos lector;
     List<Documento> documentos;
@@ -38,7 +38,8 @@ public class MetodoVectorial {
         idf = new HashMap<>();
     }
 
-    void addDocument(String doc) {
+    @Override
+    public void agregarDocumento(String doc) {
         lector.leerDocumento(doc);
         lector.refinarPalabras();
         Documento documento = new Documento();
@@ -47,7 +48,8 @@ public class MetodoVectorial {
         lector.limpiarLista();
     }
 
-    boolean agregarPalabrasVacias(String palabras) {
+    @Override
+    public boolean agregarPalabrasVacias(String palabras) {
         return lector.agregarPalabrasVacias(palabras);
     }
 
@@ -147,7 +149,8 @@ public class MetodoVectorial {
         return tf;
     }
 
-    List<Documento> getDocuments() {
+    @Override
+    public List<Documento> getDocumentos() {
         return documentos;
     }
 
@@ -179,11 +182,17 @@ public class MetodoVectorial {
         return result;
     }
 
-    void nombrarDocumentos() {
+    @Override
+    public void nombrarDocumentos() {
         if (!documentos.isEmpty()) {
             for (int i = 0; i < documentos.size(); i++) {
                 documentos.get(i).setName("D" + (i + 1));
             }
         }
+    }
+
+    @Override
+    public List<String> getTerminos() {
+        return terminos;
     }
 }

@@ -41,10 +41,10 @@ public class MetodoVectorialTest {
     public void setUp() {
         metodo = new MetodoVectorial();
         metodo.agregarPalabrasVacias(palabrasVacias);
-        metodo.addDocument(doc1);
-        metodo.addDocument(doc2);
-        metodo.addDocument(doc3);
-        metodo.addDocument(doc4);
+        metodo.agregarDocumento(doc1);
+        metodo.agregarDocumento(doc2);
+        metodo.agregarDocumento(doc3);
+        metodo.agregarDocumento(doc4);
         metodo.nombrarDocumentos();
         metodo.cargarTerminos();
         metodo.agregarConsulta("el anillo que fue parte de la historia");
@@ -62,8 +62,8 @@ public class MetodoVectorialTest {
 
     @Test
     public void testAddDocument() {
-        metodo.addDocument(doc1);
-        assertEquals(5, metodo.getDocuments().size());
+        metodo.agregarDocumento(doc1);
+        assertEquals(5, metodo.getDocumentos().size());
     }
 
     @Test
@@ -153,7 +153,7 @@ public class MetodoVectorialTest {
     @Test
     public void testNombrarDocumentos() {
         metodo.nombrarDocumentos();
-        List<Documento> result = metodo.getDocuments();
+        List<Documento> result = metodo.getDocumentos();
         assertEquals("D3", result.get(2).getName());
     }
 

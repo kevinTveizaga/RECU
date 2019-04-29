@@ -14,15 +14,15 @@ import java.util.concurrent.LinkedBlockingQueue;
  *
  * @author Kero
  */
-public class MetodoBooleano {
+public class MetodoBooleano implements Metodo {
 
     private final LectorDeDocumentos lector;
     private final List<Documento> documentos;
     private final List<String> terminos;
     private final String NOMBRE_DOCUMENTO = "D";
     private int[][] matriz;
-    private Queue<String> numeros;
-    private Queue<String> signos;
+    private final Queue<String> numeros;
+    private final Queue<String> signos;
 
     public MetodoBooleano() {
         lector = new LectorDeDocumentos();
@@ -32,6 +32,7 @@ public class MetodoBooleano {
         signos = new LinkedBlockingQueue<>();
     }
 
+    @Override
     public void agregarDocumento(String urlDocumento) {
         lector.leerDocumento(urlDocumento);
         lector.refinarPalabras();
@@ -41,10 +42,13 @@ public class MetodoBooleano {
         lector.limpiarLista();
     }
 
+    
+    @Override
     public boolean agregarPalabrasVacias(String palabras) {
         return lector.agregarPalabrasVacias(palabras);
     }
 
+    @Override
     public List<Documento> getDocumentos() {
         return documentos;
     }
@@ -73,7 +77,8 @@ public class MetodoBooleano {
         return matriz;
     }
 
-    void nombrarDocumentos() {
+    @Override
+    public void nombrarDocumentos() {
         if (!documentos.isEmpty()) {
             for (int i = 0; i < documentos.size(); i++) {
                 documentos.get(i).setName(NOMBRE_DOCUMENTO + (i + 1));
@@ -232,5 +237,10 @@ public class MetodoBooleano {
 
     Queue<String> getNumeros() {
         return numeros;
+    }
+
+    @Override
+    public List<String> getTerminos() {
+        return terminos;
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author kero
  */
-class Documento implements Comparable<Documento> {
+public class Documento implements Comparable<Documento> {
 
     String URL;
     String name;
@@ -26,7 +26,7 @@ class Documento implements Comparable<Documento> {
         return URL;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 

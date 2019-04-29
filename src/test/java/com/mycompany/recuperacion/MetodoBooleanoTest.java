@@ -125,6 +125,16 @@ public class MetodoBooleanoTest {
         String[] expected = {"D3"};
         assertArrayEquals(expected, resultado);
     }
+    
+    @Test
+    public void testConsulta4() {
+        metodo.eliminarRepetidos();
+        metodo.crearMatriz();
+        String consulta = "anillo and ( unico or parte ) and mundos";
+        String[] resultado = metodo.consultar(consulta);
+        String[] expected = {"D1"};
+        assertArrayEquals(expected, resultado);
+    }
   
     @Test
     public void testCalcularExpresionAnd() {

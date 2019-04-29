@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * @author Kero
  */
-public class MetodoProbabilistico {
+public class MetodoProbabilistico implements Metodo{
 
     List<Documento> documentos;
     LectorDeDocumentos lector;
@@ -35,7 +35,8 @@ public class MetodoProbabilistico {
         pesos = new ArrayList<>();
     }
 
-    void agregarDocumento(String docExt) {
+    @Override
+    public void agregarDocumento(String docExt) {
         lector.leerDocumento(docExt);
         lector.refinarPalabras();
         Documento documento = new Documento();
@@ -44,7 +45,8 @@ public class MetodoProbabilistico {
         lector.limpiarLista();
     }
 
-    List<Documento> getDocumentos() {
+    @Override
+    public List<Documento> getDocumentos() {
         return documentos;
     }
 
@@ -59,7 +61,8 @@ public class MetodoProbabilistico {
         return terminos;
     }
 
-    void nombrarDocumentos() {
+    @Override
+    public void nombrarDocumentos() {
         if (!documentos.isEmpty()) {
             for (int i = 0; i < documentos.size(); i++) {
                 documentos.get(i).setName(NOMBRE_DOCUMENTO + (i + 1));
@@ -67,7 +70,8 @@ public class MetodoProbabilistico {
         }
     }
 
-    boolean agregarPalabrasVacias(String palabras) {
+    @Override
+    public boolean agregarPalabrasVacias(String palabras) {
         return lector.agregarPalabrasVacias(palabras);
     }
 
@@ -137,5 +141,10 @@ public class MetodoProbabilistico {
         }
         Collections.sort(resultado);
         return resultado;
+    }
+
+    @Override
+    public List<String> getTerminos() {
+        return terminos;
     }
 }
