@@ -30,7 +30,7 @@ public class ModeloListaTerminos extends AbstractListModel{
         return metodo.getTerminos().get(index);
     }
     
-    public void addDocumento() {
+    public void addTermino() {
         this.fireIntervalAdded(this, getSize(), getSize()+1);
     }
 }

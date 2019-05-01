@@ -23,6 +23,7 @@ public class MetodoBooleano implements Metodo {
     private int[][] matriz;
     private final Queue<String> numeros;
     private final Queue<String> signos;
+    private String [] result;
 
     public MetodoBooleano() {
         lector = new LectorDeDocumentos();
@@ -86,12 +87,11 @@ public class MetodoBooleano implements Metodo {
         }
     }
 
-    String[] consultar(String consulta) {
-        String[] result;
+    public String[] consultar(String consulta) {
         String[] con = consulta.toLowerCase().split("\\s");
         String resultado = "";
         clasificarSigno(con);
-        if (consulta.length() > 1) {
+        if (con.length > 1) {
             String resAct = numeros.peek();
             while (!signos.isEmpty()) {
                 if (signos.peek().equals("(")) {
@@ -110,7 +110,7 @@ public class MetodoBooleano implements Metodo {
                 resultado = numeros.peek();
             }
         } else {
-            resultado = numeros.peek();
+            resultado = numeros.poll();
 
         }
         result = escogerDocumento(resultado);
@@ -131,60 +131,62 @@ public class MetodoBooleano implements Metodo {
 
     String convertirABinario(String palabra) {
         String terminoInt = "";
-        for (int iDoc = 0; iDoc < documentos.size(); iDoc++) {
-            int iTerm = terminos.indexOf(palabra);
-            terminoInt = terminoInt + matriz[iTerm][iDoc];
+        if(terminos.contains(palabra)) {
+            for (int iDoc = 0; iDoc < documentos.size(); iDoc++) {
+                int iTerm = terminos.indexOf(palabra);
+                terminoInt = terminoInt + matriz[iTerm][iDoc];
+            }
         }
         return terminoInt;
     }
 
     String calcularExpresion(String term1, String term2, String operador) {
-        String result = "";
+        String actResult = "";
         switch (operador) {
             case "and":
-                result = calcularAnd(term1, term2);
+                actResult = calcularAnd(term1, term2);
                 break;
             case "or":
-                result = calcularOr(term1, term2);
+                actResult = calcularOr(term1, term2);
                 break;
         }
-        return result;
+        return actResult;
     }
 
     String calcularAnd(String term1, String term2) {
-        String result = "";
+        String actResult = "";
         if (term1.length() == term2.length()) {
             for (int iC = 0; iC < term1.length(); iC++) {
                 if (term1.charAt(iC) == term2.charAt(iC)) {
                     if (term1.charAt(iC) == '1' && term2.charAt(iC) == '1') {
-                        result += "1";
+                        actResult += "1";
                     } else {
-                        result += "0";
+                        actResult += "0";
                     }
                 } else {
-                    result += "0";
+                    actResult += "0";
                 }
             }
         }
-        return result;
+        return actResult;
     }
 
     String calcularOr(String term1, String term2) {
-        String result = "";
+        String actResult = "";
         if (term1.length() == term2.length()) {
             for (int iC = 0; iC < term1.length(); iC++) {
                 if (term1.charAt(iC) == term2.charAt(iC)) {
                     if (term1.charAt(iC) == '0' && term2.charAt(iC) == '0') {
-                        result += "0";
+                        actResult += "0";
                     } else {
-                        result += "1";
+                        actResult += "1";
                     }
                 } else {
-                    result += "1";
+                    actResult += "1";
                 }
             }
         }
-        return result;
+        return actResult;
     }
 
     void clasificarSigno(String[] expresion) {
@@ -242,5 +244,19 @@ public class MetodoBooleano implements Metodo {
     @Override
     public List<String> getTerminos() {
         return terminos;
+    }
+    
+    public String[] getResult() {
+        String[] res = new String[0];
+        if (result != null) {
+            res = result;
+        }
+        return res;
+    }
+    
+    public void limpiarResultado() {
+        result = new String[0];
+        signos.clear();
+        numeros.clear();
     }
 }

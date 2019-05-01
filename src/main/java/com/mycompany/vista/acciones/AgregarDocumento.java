@@ -21,6 +21,8 @@ public class AgregarDocumento implements ActionListener {
     Metodo mtd;
     ModeloListaDocumentos lst; 
     File fileSelected;
+    JFileChooser file;
+    File lastFileSelected;
     public AgregarDocumento(Metodo metodo, ModeloListaDocumentos lista) {
         mtd = metodo;
         lst = lista;
@@ -35,13 +37,19 @@ public class AgregarDocumento implements ActionListener {
         if(fileSelected != null) {
             lst.addDocumento();
         }
+        
     }
 
     private String abrirArchivo() {
         String result = "";
-        JFileChooser file = new JFileChooser();
+        if (file == null) {
+            file = new JFileChooser();
+        } else {
+            file.setCurrentDirectory(lastFileSelected);
+        }        
         file.showOpenDialog(file);
         fileSelected = file.getSelectedFile();
+        lastFileSelected = fileSelected.getParentFile();
         if (fileSelected != null) {
             result = fileSelected.getPath();
         }

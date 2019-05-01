@@ -62,80 +62,7 @@ public class PanelMetodos implements ItemListener{
         comboBoxPane.add(cb);
         comboBoxPane.setBorder(new TitledBorder("Seleccionar metodo de busqueda"));
         
-        //Create the elements.
-        JPanel pnlBooleano = new JPanel(new BorderLayout());
-        JPanel pnlBuscarBool = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        
-        //componentes para buscar la conulta
-        JLabel lblBuscarBool = new JLabel("Buscar: ");
-        JTextField txtFBuscarBool = new JTextField(20);
-        JButton buscarDocumento = new JButton(BUSCAR);
-        buscarDocumento.addActionListener(new BuscarConsulta(booleano));
-        
-        //panel de la lista
-        JPanel pnlList = new JPanel();
-        pnlList.setLayout(new BoxLayout(pnlList, BoxLayout.Y_AXIS));
-        pnlList.setBorder(new TitledBorder("Documentos"));
-        pnlList.setPreferredSize(new Dimension(200, 200));
-        
-        //lista de documentos
-        JList docList = new JList();
-        ModeloListaDocumentos modLista = new ModeloListaDocumentos(this.booleano);
-        docList.setModel(modLista);
-        //panel scroll de la lista
-        JScrollPane listScroller = new JScrollPane(docList);
-        listScroller.setPreferredSize(new Dimension(200, 190));
-        
-        //Panel de botones izquierda
-        JPanel pnlBotones = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        pnlBotones.setPreferredSize(new Dimension(200,50));
-        //boton agregar palabras vacias
-        JButton btnPalabrasVacias = new JButton(AGREGAR_PALABRAS_VACIAS);
-        btnPalabrasVacias.setToolTipText("agregar palabras vacias");
-        btnPalabrasVacias.addActionListener(new AgregarPalabrasVacias(booleano, btnPalabrasVacias));
-        //boton agregar documento
-        JButton agregarDocumentoBool = new JButton(AGREGAR);
-        agregarDocumentoBool.addActionListener(new AgregarDocumento(booleano, modLista));
-        //agregar al panel de botones izquierda
-        pnlBotones.add(agregarDocumentoBool);
-        pnlBotones.add(btnPalabrasVacias);
-        
-        //Panel de botones centro
-        JPanel pnlTerminos = new JPanel();
-        pnlTerminos.setLayout(new BoxLayout(pnlTerminos, BoxLayout.Y_AXIS));
-        pnlTerminos.setBorder(new TitledBorder("Terminos"));
-        pnlTerminos.setPreferredSize(new Dimension(200, 200));
-        
-        //lista de documentos
-        JList termList = new JList();
-        ModeloListaTerminos modListaTerm = new ModeloListaTerminos(booleano);
-        termList.setModel(modListaTerm);
-        //panel scroll de la lista
-        JScrollPane listScrollerTerm = new JScrollPane(termList);
-        listScrollerTerm.setPreferredSize(new Dimension(200, 190));
-        pnlTerminos.add(listScrollerTerm);
-        
-       
-        //agregar al panel de busqueda
-        pnlBuscarBool.add(lblBuscarBool);
-        pnlBuscarBool.add(txtFBuscarBool);
-        pnlBuscarBool.add(buscarDocumento);
-        
-        //agregar al panel de la lista
-        pnlList.add(listScroller);
-        pnlList.add(pnlBotones);
-        //agregar al panel del metodo
-        pnlBooleano.add(pnlBuscarBool, BorderLayout.PAGE_START);
-        pnlBooleano.add(pnlList, BorderLayout.LINE_START);
-        pnlBooleano.add(pnlTerminos, BorderLayout.CENTER);
-        
-        
-        
-        
-        
-        
-        
-        
+        JPanel pnlBooleano = createBooleanCard();
         
         
         JPanel pnlVectorial = new JPanel(new BorderLayout());
@@ -170,6 +97,84 @@ public class PanelMetodos implements ItemListener{
         
         pane.add(comboBoxPane, BorderLayout.PAGE_START);
         pane.add(cards, BorderLayout.CENTER);
+    }
+
+    private JPanel createBooleanCard() {
+        //Create the elements.
+        JPanel pnlBooleano = new JPanel(new BorderLayout());
+        JPanel pnlBuscarBool = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        //panel de la lista
+        JPanel pnlList = new JPanel();
+        pnlList.setLayout(new BoxLayout(pnlList, BoxLayout.Y_AXIS));
+        pnlList.setBorder(new TitledBorder("Documentos"));
+        pnlList.setPreferredSize(new Dimension(200, 200));
+        //lista de documentos
+        JList docList = new JList();
+        ModeloListaDocumentos modLista = new ModeloListaDocumentos(this.booleano);
+        docList.setModel(modLista);
+        //panel scroll de la lista
+        JScrollPane listScroller = new JScrollPane(docList);
+        listScroller.setPreferredSize(new Dimension(200, 190));
+        //Panel de botones izquierda
+        JPanel pnlBotones = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        pnlBotones.setPreferredSize(new Dimension(200,50));
+        //boton agregar palabras vacias
+        JButton btnPalabrasVacias = new JButton(AGREGAR_PALABRAS_VACIAS);
+        btnPalabrasVacias.setToolTipText("agregar palabras vacias");
+        btnPalabrasVacias.addActionListener(new AgregarPalabrasVacias(booleano, btnPalabrasVacias));
+        //boton agregar documento
+        JButton agregarDocumentoBool = new JButton(AGREGAR);
+        agregarDocumentoBool.addActionListener(new AgregarDocumento(booleano, modLista));
+        //agregar al panel de botones izquierda
+        pnlBotones.add(agregarDocumentoBool);
+        pnlBotones.add(btnPalabrasVacias);
+        //Panel de terminos centro
+        JPanel pnlTerminos = new JPanel();
+        pnlTerminos.setLayout(new BoxLayout(pnlTerminos, BoxLayout.Y_AXIS));
+        pnlTerminos.setBorder(new TitledBorder("Terminos"));
+        pnlTerminos.setPreferredSize(new Dimension(200, 200));
+        //lista de terminos
+        JList termList = new JList();
+        ModeloListaTerminos modListaTerm = new ModeloListaTerminos(booleano);
+        termList.setModel(modListaTerm);
+        //panel scroll de la lista
+        JScrollPane listScrollerTerm = new JScrollPane(termList);
+        listScrollerTerm.setPreferredSize(new Dimension(200, 190));
+        pnlTerminos.add(listScrollerTerm);
+        //Panel de resultados derecha
+        JPanel pnlResultados = new JPanel();
+        pnlResultados.setLayout(new BoxLayout(pnlResultados, BoxLayout.Y_AXIS));
+        pnlResultados.setBorder(new TitledBorder("Resultados"));
+        pnlResultados.setPreferredSize(new Dimension(200, 200));      
+        //lista de resultados
+        JList resultList = new JList();
+        ModeloListaResultados modListaResult = new ModeloListaResultados(booleano);
+        resultList.setModel(modListaResult);
+        //panel scroll de la lista
+        JScrollPane listScrollerResult = new JScrollPane(resultList);
+        listScrollerResult.setPreferredSize(new Dimension(200, 190));
+        pnlResultados.add(listScrollerResult);
+        //componentes para buscar la conulta
+        JLabel lblBuscarBool = new JLabel("Buscar: ");
+        JTextField txtFBuscarBool = new JTextField(20);
+        JButton buscarDocumento = new JButton(BUSCAR);
+        BuscarConsulta accionBuscarConsulta = new BuscarConsulta(booleano, txtFBuscarBool);
+        accionBuscarConsulta.setTerminosList(modListaTerm);
+        accionBuscarConsulta.setResultList(modListaResult);
+        buscarDocumento.addActionListener(accionBuscarConsulta);
+        //agregar al panel de busqueda
+        pnlBuscarBool.add(lblBuscarBool);
+        pnlBuscarBool.add(txtFBuscarBool);
+        pnlBuscarBool.add(buscarDocumento);
+        //agregar al panel de la lista
+        pnlList.add(listScroller);
+        pnlList.add(pnlBotones);
+        //agregar al panel del metodo
+        pnlBooleano.add(pnlBuscarBool, BorderLayout.PAGE_START);
+        pnlBooleano.add(pnlList, BorderLayout.LINE_START);
+        pnlBooleano.add(pnlTerminos, BorderLayout.CENTER);
+        pnlBooleano.add(pnlResultados, BorderLayout.LINE_END);
+        return pnlBooleano;
     }
     
     @Override
