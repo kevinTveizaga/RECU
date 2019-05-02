@@ -60,7 +60,7 @@ public class LectorDeDocumentos {
                     String palabraVacia;
                     BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
                     while ((palabraVacia = reader.readLine()) != null) {
-                        palabrasVacias.add(palabraVacia);
+                        palabrasVacias.add(palabraVacia.toLowerCase());
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(LectorDeDocumentos.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,7 +80,7 @@ public class LectorDeDocumentos {
     }
 
     private void separarPalabras(String lineaTexto) {
-        String[] frase = lineaTexto.split("\\s");
+        String[] frase = lineaTexto.toLowerCase().split("[^(a-zA-ZÀ-ÿ)]+");
         this.palabras.addAll(Arrays.asList(frase));
     }
 

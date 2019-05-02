@@ -25,6 +25,7 @@ public class MetodoProbabilisticoTest {
     String doc2;
     String doc3;
     String doc4;
+    String docLargo;
     String palabrasVacias;
 
     public MetodoProbabilisticoTest() {
@@ -32,6 +33,7 @@ public class MetodoProbabilisticoTest {
         this.doc2 = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\documentos\\Documento2.txt";
         this.doc3 = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\documentos\\Documento3.txt";
         this.doc4 = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\documentos\\Documento4.txt";
+        this.docLargo = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\archivos\\textoLargo.txt";
         this.palabrasVacias = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\archivos\\palabrasVacias.txt";
     }
 
@@ -176,6 +178,22 @@ public class MetodoProbabilisticoTest {
         });
         String[] expected = {"D4"};
         assertArrayEquals(expected, resultado.toArray());
-        
     }
+    
+    @Test
+    public void testCalcSimProb5() {
+        metodo.agregarDocumento(docLargo);
+        String consulta = "los seres vivos vivos vivos residian dramatica";
+        metodo.crearMatrizBinaria();
+        metodo.cargarConsulta(consulta);
+        metodo.calcularPeso();
+        List<String> resultado = new ArrayList<>();
+        metodo.calcSimProb().forEach((doc) -> {
+            resultado.add(doc.getName());
+        });
+        String[] expected = {"D4"};
+        assertArrayEquals(expected, resultado.toArray());
+    }
+    
+    
 }
