@@ -119,7 +119,63 @@ public class MetodoProbabilisticoTest {
         metodo.calcSimProb().forEach((doc) -> {
             resultado.add(doc.getName());
         });
-        String[] expected = {"D3","D1","D4","D2"};
+        String[] expected = {"D3","D2"};
+        assertArrayEquals(expected, resultado.toArray());
+        
+    }
+    @Test
+    public void testCalcSimProb1() {
+        String consulta = "la universidad de unamumo";
+        metodo.crearMatrizBinaria();
+        metodo.cargarConsulta(consulta);
+        metodo.calcularPeso();
+        List<String> resultado = new ArrayList<>();
+        metodo.calcSimProb().forEach((doc) -> {
+            resultado.add(doc.getName());
+        });
+        String[] expected = {};
+        assertArrayEquals(expected, resultado.toArray());
+        
+    }
+    @Test
+    public void testCalcSimProb2() {
+        String consulta = "dramatica dramatica dramatica";
+        metodo.crearMatrizBinaria();
+        metodo.cargarConsulta(consulta);
+        metodo.calcularPeso();
+        List<String> resultado = new ArrayList<>();
+        metodo.calcSimProb().forEach((doc) -> {
+            resultado.add(doc.getName());
+        });
+        String[] expected = {"D4"};
+        assertArrayEquals(expected, resultado.toArray());
+        
+    }
+    @Test
+    public void testCalcSimProb3() {
+        String consulta = "el anillo tenia un tinte dramatico";
+        metodo.crearMatrizBinaria();
+        metodo.cargarConsulta(consulta);
+        metodo.calcularPeso();
+        List<String> resultado = new ArrayList<>();
+        metodo.calcSimProb().forEach((doc) -> {
+            resultado.add(doc.getName());
+        });
+        String[] expected = {};
+        assertArrayEquals(expected, resultado.toArray());
+        
+    }
+    @Test
+    public void testCalcSimProb4() {
+        String consulta = "los seres vivos vivos vivos residian dramatica";
+        metodo.crearMatrizBinaria();
+        metodo.cargarConsulta(consulta);
+        metodo.calcularPeso();
+        List<String> resultado = new ArrayList<>();
+        metodo.calcSimProb().forEach((doc) -> {
+            resultado.add(doc.getName());
+        });
+        String[] expected = {"D4"};
         assertArrayEquals(expected, resultado.toArray());
         
     }

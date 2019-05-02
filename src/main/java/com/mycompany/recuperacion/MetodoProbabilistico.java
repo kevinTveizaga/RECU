@@ -134,11 +134,13 @@ public class MetodoProbabilistico implements Metodo{
                 int iTerm = terminos.indexOf(keys.get(iPeso));
                 suma = suma + (pesos.get(iPeso) * matBin[iTerm][iDoc]);
             }
-            Documento temp = documentos.get(iDoc);
-            temp.setPeso(suma);
-            resultado.add(temp);
+            if(suma != 0.000f) {
+                Documento temp = documentos.get(iDoc);
+                temp.setPeso(suma);
+                resultado.add(temp);
+                Collections.sort(resultado);
+            }
         }
-        Collections.sort(resultado);
         return resultado;
     }
 
