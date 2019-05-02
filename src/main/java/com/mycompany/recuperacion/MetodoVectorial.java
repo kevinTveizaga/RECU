@@ -67,14 +67,13 @@ public class MetodoVectorial implements Metodo {
         }
     }
 
-    List<String> cargarTerminos() {
-        for (Documento terminoAux : documentos) {
-            for (String elemento : terminoAux.getPalabras()) {
-                if (!terminos.contains(elemento)) {
-                    terminos.add(elemento);
-                }
-            }
-        }
+    public List<String> cargarTerminos() {
+        documentos.forEach((Documento terminoAux) -> {
+            terminoAux.getPalabras().stream().filter((String elemento) -> 
+            (!terminos.contains(elemento))).forEachOrdered((elemento) -> {
+                terminos.add(elemento);
+            });
+        });
         return terminos;
     }
 
@@ -154,7 +153,7 @@ public class MetodoVectorial implements Metodo {
         return documentos;
     }
 
-    List<Documento> getConsultas() {
+    public List<Documento> getConsultas() {
         return consultas;
     }
 
@@ -166,19 +165,22 @@ public class MetodoVectorial implements Metodo {
         return mPesoConsultas;
     }
 
-    List<Documento> calcularSimilaridad() {
+    public List<Documento> calcularSimilaridad() {
         List<Documento> result = new ArrayList<>();
         for (int iQuery = 0; iQuery < consultas.size(); iQuery++) {
             for (int iDoc = 0; iDoc < documentos.size(); iDoc++) {
                 float sumatoriaSim = 0.0f;
                 for (int iTerm = 0; iTerm < terminos.size(); iTerm++) {
+                    
                     sumatoriaSim += mPesos[iTerm][iDoc] * mPesoConsultas[iTerm][iQuery];
                 }
-                documentos.get(iDoc).setPeso(sumatoriaSim);
-                result.add(documentos.get(iDoc));
+                if (sumatoriaSim > 0.0f) {
+                    documentos.get(iDoc).setPeso(sumatoriaSim);
+                    result.add(documentos.get(iDoc));
+                    Collections.sort(result);
+                }
             }
         }
-        Collections.sort(result);
         return result;
     }
 

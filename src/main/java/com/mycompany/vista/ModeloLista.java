@@ -5,9 +5,7 @@
  */
 package com.mycompany.vista;
 
-import com.mycompany.recuperacion.MetodoBooleano;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
@@ -16,24 +14,18 @@ import javax.swing.DefaultListModel;
  *
  * @author kero
  */
-public class ModeloListaResultados extends AbstractListModel {
+public class ModeloLista extends AbstractListModel {
 
-    MetodoBooleano mtd;
+    
     List<String> resultados;
     DefaultListModel<Object> l;
-    public ModeloListaResultados(MetodoBooleano booleano) {
-        mtd = booleano;
+    public ModeloLista() {
         resultados = new ArrayList<>();
     }
 
     @Override
     public int getSize() {
-        int result = 0;
-        if (mtd.getResult() != null) {
-            resultados = new ArrayList<>(Arrays.asList(mtd.getResult()));
-            result = resultados.size();
-        }
-        return result;
+        return resultados.size();
     }
 
     @Override
@@ -41,14 +33,15 @@ public class ModeloListaResultados extends AbstractListModel {
         return resultados.get(index);
     }
     
-    public void addResultado(String resultado) {
+    public void adElemento(String elemento) {
         int indice = resultados.size();
-        resultados.add(resultado);
+        resultados.add(elemento);
         this.fireIntervalAdded(this, indice, indice+1);
     }
     
-    public void eliminarResultados(){
+    public void eliminarElementos(){
         int indice = resultados.size();
+        resultados.clear();
         if (indice >= 0) {
             fireIntervalRemoved(this, 0, indice);
         }

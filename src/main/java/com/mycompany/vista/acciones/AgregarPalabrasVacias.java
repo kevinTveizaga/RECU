@@ -28,8 +28,10 @@ public class AgregarPalabrasVacias implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         String filePath = abrirArchivo();
-        mtd.agregarPalabrasVacias(filePath);
-        btn.setEnabled(false);
+        if (!"".equals(filePath)) {
+            mtd.agregarPalabrasVacias(filePath);
+            btn.setEnabled(false);
+        }
     }
     
      private String abrirArchivo() {

@@ -6,6 +6,9 @@
 package com.mycompany.vista.acciones;
 
 import com.mycompany.recuperacion.Metodo;
+import com.mycompany.recuperacion.MetodoBooleano;
+import com.mycompany.recuperacion.MetodoVectorial;
+import com.mycompany.vista.ModeloLista;
 import com.mycompany.vista.ModeloListaDocumentos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,27 +20,45 @@ import javax.swing.JFileChooser;
  * @author kero
  */
 public class AgregarDocumento implements ActionListener {
-   
+
     Metodo mtd;
-    ModeloListaDocumentos lst; 
+    ModeloListaDocumentos lst;
+    ModeloLista terminos;
     File fileSelected;
     JFileChooser file;
     File lastFileSelected;
+
     public AgregarDocumento(Metodo metodo, ModeloListaDocumentos lista) {
         mtd = metodo;
         lst = lista;
-        
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String filePath = abrirArchivo();
         mtd.agregarDocumento(filePath);
         mtd.nombrarDocumentos();
-        if(fileSelected != null) {
+        if (!"".equals(filePath)) {
             lst.addDocumento();
         }
-        
+        if (mtd instanceof MetodoBooleano) {
+            MetodoBooleano mb = (MetodoBooleano) mtd;
+            mb.eliminarRepetidos();
+            terminos.eliminarElementos();
+            if(!mb.getTerminos().isEmpty()){
+                mb.getTerminos().forEach((term) -> {
+                    terminos.adElemento(term);
+                });
+            }
+        } else {
+            if(mtd instanceof MetodoVectorial) {
+                MetodoVectorial mv = (MetodoVectorial) mtd;
+                terminos.eliminarElementos();
+                mv.cargarTerminos().forEach((termino) -> {
+                    terminos.adElemento(termino);
+                });
+            }
+        }
     }
 
     private String abrirArchivo() {
@@ -46,13 +67,20 @@ public class AgregarDocumento implements ActionListener {
             file = new JFileChooser();
         } else {
             file.setCurrentDirectory(lastFileSelected);
-        }        
+        }
         file.showOpenDialog(file);
         fileSelected = file.getSelectedFile();
-        lastFileSelected = fileSelected.getParentFile();
+        if(fileSelected != null) {
+            lastFileSelected = fileSelected.getParentFile();
+        }
         if (fileSelected != null) {
             result = fileSelected.getPath();
         }
         return result;
     }
+
+    public void setTerminosList(ModeloLista modListaTerm) {
+        terminos = modListaTerm;
+    }
+
 }

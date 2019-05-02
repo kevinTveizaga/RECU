@@ -50,14 +50,13 @@ public class MetodoProbabilistico implements Metodo{
         return documentos;
     }
 
-    List<String> cargarTerminos() {
-        for (Documento terminoAux : documentos) {
-            for (String elemento : terminoAux.getPalabras()) {
-                if (!terminos.contains(elemento)) {
-                    terminos.add(elemento);
-                }
-            }
-        }
+    public List<String> cargarTerminos() {
+        documentos.forEach((terminoAux) -> {
+            terminoAux.getPalabras().stream().filter((elemento) -> 
+                    (!terminos.contains(elemento))).forEachOrdered((elemento) -> {
+                        terminos.add(elemento);
+                    });
+        });
         return terminos;
     }
 

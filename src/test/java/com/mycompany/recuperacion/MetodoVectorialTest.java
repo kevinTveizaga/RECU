@@ -26,6 +26,7 @@ public class MetodoVectorialTest {
     private final String doc2;
     private final String doc3;
     private final String doc4;
+    private final String doc5;
     private final String palabrasVacias;
     private MetodoVectorial metodo;
 
@@ -34,6 +35,7 @@ public class MetodoVectorialTest {
         this.doc2 = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\documentos\\Documento2.txt";
         this.doc3 = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\documentos\\Documento3.txt";
         this.doc4 = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\documentos\\Documento4.txt";
+        this.doc5 = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\documentos\\Documento5.txt";
         this.palabrasVacias = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\archivos\\palabrasVacias.txt";
     }
 
@@ -47,7 +49,6 @@ public class MetodoVectorialTest {
         metodo.agregarDocumento(doc4);
         metodo.nombrarDocumentos();
         metodo.cargarTerminos();
-        metodo.agregarConsulta("el anillo que fue parte de la historia");
     }
 
     @Test
@@ -129,12 +130,14 @@ public class MetodoVectorialTest {
 
     @Test
     public void testAgregarConsulta() {
+        metodo.agregarConsulta("el anillo que fue parte de la historia");
         metodo.agregarConsulta("otra consulta agregada");
         assertEquals(2, metodo.getConsultas().size());
     }
 
     @Test
     public void testCrearTfConsulta() {
+        metodo.agregarConsulta("el anillo que fue parte de la historia");
         metodo.crearTfConsulta();
         int[][] resultado = metodo.getTfConsulta();
         int[][] expected = {{1},
@@ -159,6 +162,7 @@ public class MetodoVectorialTest {
 
     @Test
     public void testCrearMatrizPesosConsulta() {
+        metodo.agregarConsulta("el anillo que fue parte de la historia");
         metodo.crearTfConsulta();
         metodo.llenarIdf();
         metodo.crearMatrizPesosConsulta();
@@ -178,6 +182,7 @@ public class MetodoVectorialTest {
 
     @Test
     public void testCalcularSimilaridad() {
+        metodo.agregarConsulta("el anillo que fue parte de la historia");
         metodo.crearTF();
         metodo.llenarIdf();
         metodo.crearTfConsulta();
@@ -188,6 +193,74 @@ public class MetodoVectorialTest {
             resultado.add(doc.getName());
         });
         List<String> expected = new ArrayList<>(Arrays.asList("D1", "D2", "D3", "D4"));
+        assertArrayEquals(expected.toArray(), resultado.toArray());
+    }
+    
+    @Test
+    public void testCalcularSimilaridad1() {
+        metodo.agregarConsulta("la parte dramatica no se incluye");
+        metodo.crearTF();
+        metodo.llenarIdf();
+        metodo.crearTfConsulta();
+        metodo.crearMatrizPesos();
+        metodo.crearMatrizPesosConsulta();
+        List<String> resultado = new ArrayList<>();
+        metodo.calcularSimilaridad().forEach((doc) -> {
+            resultado.add(doc.getName());
+        });
+        List<String> expected = new ArrayList<>(Arrays.asList("D4", "D2", "D3"));
+        assertArrayEquals(expected.toArray(), resultado.toArray());
+    }
+    
+    @Test
+    public void testCalcularSimilaridad2() {
+        metodo.agregarConsulta("parte parte parte vivo vivo vivo");
+        metodo.crearTF();
+        metodo.llenarIdf();
+        metodo.crearTfConsulta();
+        metodo.crearMatrizPesos();
+        metodo.crearMatrizPesosConsulta();
+        List<String> resultado = new ArrayList<>();
+        metodo.calcularSimilaridad().forEach((doc) -> {
+            resultado.add(doc.getName());
+        });
+        List<String> expected = new ArrayList<>(Arrays.asList("D3", "D2", "D4"));
+        assertArrayEquals(expected.toArray(), resultado.toArray());
+    }
+    
+    @Test
+    public void testCalcularSimilaridad3() {
+        metodo.agregarConsulta("no existe no existe no existe");
+        metodo.crearTF();
+        metodo.llenarIdf();
+        metodo.crearTfConsulta();
+        metodo.crearMatrizPesos();
+        metodo.crearMatrizPesosConsulta();
+        List<String> resultado = new ArrayList<>();
+        metodo.calcularSimilaridad().forEach((doc) -> {
+            resultado.add(doc.getName());
+        });
+        List<String> expected = new ArrayList<>(Arrays.asList());
+        assertArrayEquals(expected.toArray(), resultado.toArray());
+    }
+    
+    @Test
+    public void testCalcularSimilaridad4() {
+        metodo.agregarDocumento(doc5);
+        metodo.nombrarDocumentos();
+        metodo.getTerminos().clear();
+        metodo.cargarTerminos();
+        metodo.agregarConsulta("dramatica parte vivo");
+        metodo.crearTF();
+        metodo.llenarIdf();
+        metodo.crearTfConsulta();
+        metodo.crearMatrizPesos();
+        metodo.crearMatrizPesosConsulta();
+        List<String> resultado = new ArrayList<>();
+        metodo.calcularSimilaridad().forEach((doc) -> {
+            resultado.add(doc.getName());
+        });
+        List<String> expected = new ArrayList<>(Arrays.asList("D5","D3","D4","D2"));
         assertArrayEquals(expected.toArray(), resultado.toArray());
     }
 }
