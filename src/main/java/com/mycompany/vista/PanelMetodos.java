@@ -228,9 +228,6 @@ public class PanelMetodos implements ItemListener {
         listScrollerResult.setPreferredSize(new Dimension(200, 190));
         pnlResultados.add(listScrollerResult);
         
-        
-        
-        
         pnlVectorial.add(pnlBuscarVecto, BorderLayout.PAGE_START);
         pnlVectorial.add(pnlList, BorderLayout.LINE_START);
         pnlVectorial.add(pnlTerminos, BorderLayout.CENTER);

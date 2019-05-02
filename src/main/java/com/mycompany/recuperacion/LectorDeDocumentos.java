@@ -7,8 +7,10 @@ package com.mycompany.recuperacion;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +37,7 @@ public class LectorDeDocumentos {
             File file = new File(filePath);
             if (file.isFile()) {
                 try {
-                    BufferedReader reader = new BufferedReader(new FileReader(file));
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
                     String text;
                     while ((text = reader.readLine()) != null) {
                         separarPalabras(text);
@@ -56,7 +58,7 @@ public class LectorDeDocumentos {
             if (file.isFile()) {
                 try {
                     String palabraVacia;
-                    BufferedReader reader = new BufferedReader(new FileReader(file));
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
                     while ((palabraVacia = reader.readLine()) != null) {
                         palabrasVacias.add(palabraVacia);
                     }

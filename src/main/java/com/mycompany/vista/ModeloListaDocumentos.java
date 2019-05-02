@@ -5,7 +5,6 @@
  */
 package com.mycompany.vista;
 
-import com.mycompany.recuperacion.Documento;
 import com.mycompany.recuperacion.Metodo;
 import javax.swing.AbstractListModel;
 

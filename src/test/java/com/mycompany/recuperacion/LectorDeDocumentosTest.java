@@ -56,6 +56,13 @@ public class LectorDeDocumentosTest {
         boolean cargado = lector.agregarPalabrasVacias(urlPath);
         assertTrue(cargado);
     }
+    
+    @Test
+    public void testAgregarPalabrasVacias1() {
+        String urlPath = "C:\\Users\\kero\\Documents\\NetBeansProjects\\recuperacion\\src\\test\\java\\com\\mycompany\\recuperacion\\archivos\\palabrasVacias.txt";
+        lector.agregarPalabrasVacias(urlPath);
+        assertEquals("acá", lector.getPalabrasVacias().get(1));
+    }
 
     @Test
     public void testLimpiarLista() {
@@ -76,6 +83,13 @@ public class LectorDeDocumentosTest {
     public void testLeerConsulta() {
         lector.leerConsulta("un ejemplo de consulta corta e interesante");
         List<String> expected = new ArrayList<>(Arrays.asList("ejemplo", "consulta", "corta", "interesante"));
+        assertArrayEquals(expected.toArray(), lector.getPalabras().toArray());
+    }
+
+    @Test
+    public void testLeerConsulta1() {
+        lector.leerConsulta("Así que de aquí se sigue");
+        List<String> expected = new ArrayList<>(Arrays.asList("Así", "sigue"));
         assertArrayEquals(expected.toArray(), lector.getPalabras().toArray());
     }
 }

@@ -121,7 +121,6 @@ public class MetodoProbabilisticoTest {
         });
         String[] expected = {"D3","D2"};
         assertArrayEquals(expected, resultado.toArray());
-        
     }
     @Test
     public void testCalcSimProb1() {
