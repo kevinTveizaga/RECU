@@ -86,10 +86,4 @@ public class LectorDeDocumentosTest {
         assertArrayEquals(expected.toArray(), lector.getPalabras().toArray());
     }
 
-    @Test
-    public void testLeerConsulta1() {
-        lector.leerConsulta("Así que de aquí se sigue");
-        List<String> expected = new ArrayList<>(Arrays.asList("Así", "sigue"));
-        assertArrayEquals(expected.toArray(), lector.getPalabras().toArray());
-    }
 }
