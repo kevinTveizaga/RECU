@@ -11,6 +11,7 @@ import com.mycompany.recuperacion.MetodoVectorial;
 import com.mycompany.vista.acciones.AgregarDocumento;
 import com.mycompany.vista.acciones.AgregarPalabrasVacias;
 import com.mycompany.vista.acciones.BuscarConsultaBool;
+import com.mycompany.vista.acciones.BuscarConsultaVecto;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Container;
@@ -158,11 +159,7 @@ public class PanelMetodos implements ItemListener {
     private JPanel createVectorialMethod() {
         JPanel pnlVectorial = new JPanel(new BorderLayout());
         JPanel pnlBuscarVecto = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JLabel lblBuscarVect = new JLabel("Consulta: ");
-        JTextField txtFBuscarVect = new JTextField(20);
-        JButton buscarConsulta = new JButton(BUSCAR);
-        
-        //panel de la lista
+        //panel de la lista de documentos
         JPanel pnlList = new JPanel();
         pnlList.setLayout(new BoxLayout(pnlList, BoxLayout.Y_AXIS));
         pnlList.setBorder(new TitledBorder("Documentos"));
@@ -181,7 +178,6 @@ public class PanelMetodos implements ItemListener {
         JButton btnPalabrasVacias = new JButton(AGREGAR_PALABRAS_VACIAS);
         btnPalabrasVacias.setToolTipText("agregar palabras vacias");
         btnPalabrasVacias.addActionListener(new AgregarPalabrasVacias(vectorial, btnPalabrasVacias));
-        
         //lista de terminos
         JList termList = new JList();
         ModeloLista modListaTerm = new ModeloLista();
@@ -189,31 +185,20 @@ public class PanelMetodos implements ItemListener {
         //panel scroll de la lista
         JScrollPane listScrollerTerm = new JScrollPane(termList);
         listScrollerTerm.setPreferredSize(new Dimension(200, 190));
-        listScrollerTerm.setBorder(new TitledBorder("Terminos"));
         //boton agregar documento
         JButton agregarDocumento = new JButton(AGREGAR);
         AgregarDocumento actAgregarDocumento = new AgregarDocumento(vectorial, modLista);
         actAgregarDocumento.setTerminosList(modListaTerm);
         agregarDocumento.addActionListener(actAgregarDocumento);
-        
-        buscarConsulta.addActionListener(actAgregarDocumento);
         //agregar al panel de botones izquierda
         pnlBotones.add(agregarDocumento);
         pnlBotones.add(btnPalabrasVacias);
-        //panel de busqueda vectorial
-        pnlBuscarVecto.add(lblBuscarVect);
-        pnlBuscarVecto.add(txtFBuscarVect);
-        pnlBuscarVecto.add(buscarConsulta);
-        //agregar al panel de la lista
-        pnlList.add(listScroller);
-        pnlList.add(pnlBotones);
         //Panel de terminos centro
         JPanel pnlTerminos = new JPanel();
         pnlTerminos.setLayout(new BoxLayout(pnlTerminos,BoxLayout.Y_AXIS));
+        pnlTerminos.setBorder(new TitledBorder("Terminos"));
         pnlTerminos.setPreferredSize(new Dimension(200, 200));
         pnlTerminos.add(listScrollerTerm);
-        
-        
         //Panel de resultados derecha
         JPanel pnlResultados = new JPanel();
         pnlResultados.setLayout(new BoxLayout(pnlResultados, BoxLayout.Y_AXIS));
@@ -227,7 +212,22 @@ public class PanelMetodos implements ItemListener {
         JScrollPane listScrollerResult = new JScrollPane(resultList);
         listScrollerResult.setPreferredSize(new Dimension(200, 190));
         pnlResultados.add(listScrollerResult);
-        
+        //componentes para buscar la consulta
+        JLabel lblBuscarVect = new JLabel("Consulta: ");
+        JTextField txtFBuscarVect = new JTextField(20);
+        JButton buscarConsulta = new JButton(BUSCAR);
+        BuscarConsultaVecto actVecto = new BuscarConsultaVecto(vectorial, txtFBuscarVect);
+        actAgregarDocumento.setTerminosList(modListaTerm);
+        actVecto.setResultList(modListaResult);
+        buscarConsulta.addActionListener(actVecto);
+        //panel de busqueda vectorial
+        pnlBuscarVecto.add(lblBuscarVect);
+        pnlBuscarVecto.add(txtFBuscarVect);
+        pnlBuscarVecto.add(buscarConsulta);
+        //agregar al panel de la lista
+        pnlList.add(listScroller);
+        pnlList.add(pnlBotones);
+             
         pnlVectorial.add(pnlBuscarVecto, BorderLayout.PAGE_START);
         pnlVectorial.add(pnlList, BorderLayout.LINE_START);
         pnlVectorial.add(pnlTerminos, BorderLayout.CENTER);

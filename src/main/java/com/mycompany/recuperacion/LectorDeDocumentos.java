@@ -8,7 +8,6 @@ package com.mycompany.recuperacion;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -60,7 +59,11 @@ public class LectorDeDocumentos {
                     String palabraVacia;
                     BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
                     while ((palabraVacia = reader.readLine()) != null) {
-                        palabrasVacias.add(palabraVacia.toLowerCase());
+                        for(String palabra : palabraVacia.split("\\s")){
+                            if(!palabrasVacias.contains(palabra)) {
+                                palabrasVacias.add(palabra.toLowerCase());
+                            }
+                        }
                     }
                 } catch (IOException ex) {
                     Logger.getLogger(LectorDeDocumentos.class.getName()).log(Level.SEVERE, null, ex);

@@ -8,6 +8,7 @@ package com.mycompany.recuperacion;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +29,6 @@ public class MetodoVectorial implements Metodo {
     List<Documento> consultas;
     int[][] tfConsulta;
     float[][] mPesoConsultas;
-    Map<String, Integer> idfConsulta;
 
     public MetodoVectorial() {
         lector = new LectorDeDocumentos();
@@ -53,7 +53,7 @@ public class MetodoVectorial implements Metodo {
         return lector.agregarPalabrasVacias(palabras);
     }
 
-    void crearTF() {
+    public void crearTF() {
         tf = new int[terminos.size()][documentos.size()];
         for (int docIndex = 0; docIndex < documentos.size(); docIndex++) {
             for (int termIndex = 0; termIndex < terminos.size(); termIndex++) {
@@ -77,7 +77,7 @@ public class MetodoVectorial implements Metodo {
         return terminos;
     }
 
-    void crearMatrizPesos() {
+    public void crearMatrizPesos() {
         mPesos = new float[terminos.size()][documentos.size()];
         for (int iTerm = 0; iTerm < terminos.size(); iTerm++) {
             for (int iDoc = 0; iDoc < documentos.size(); iDoc++) {
@@ -90,7 +90,7 @@ public class MetodoVectorial implements Metodo {
         }
     }
 
-    void llenarIdf() {
+    public void llenarIdf() {
         for (int indexTerm = 0; indexTerm < terminos.size(); indexTerm++) {
             int contador = 1;
             for (int indexDoc = 0; indexDoc < documentos.size(); indexDoc++) {
@@ -101,14 +101,15 @@ public class MetodoVectorial implements Metodo {
         }
     }
 
-    void agregarConsulta(String consulta) {
+    public void agregarConsulta(String consulta) {
         lector.leerConsulta(consulta);
         Documento documento = new Documento();
-        documento.setPalabras(lector.getPalabras());
+        documento.setPalabras(new ArrayList<>(lector.getPalabras()));
         consultas.add(documento);
+        lector.limpiarLista();
     }
 
-    void crearTfConsulta() {
+    public void crearTfConsulta() {
         tfConsulta = new int[terminos.size()][consultas.size()];
         for (int queIndex = 0; queIndex < consultas.size(); queIndex++) {
             for (int termIndex = 0; termIndex < terminos.size(); termIndex++) {
@@ -122,7 +123,7 @@ public class MetodoVectorial implements Metodo {
         }
     }
 
-    void crearMatrizPesosConsulta() {
+    public void crearMatrizPesosConsulta() {
         mPesoConsultas = new float[terminos.size()][consultas.size()];
         for (int iTerm = 0; iTerm < terminos.size(); iTerm++) {
             for (int iQuery = 0; iQuery < consultas.size(); iQuery++) {
@@ -196,5 +197,14 @@ public class MetodoVectorial implements Metodo {
     @Override
     public List<String> getTerminos() {
         return terminos;
+    }
+    
+    public void limpiarResultado() {
+        consultas.clear();
+        tfConsulta = new int[0][0];
+        mPesoConsultas = new float[0][0];
+        idf.clear();
+        tf = new int[0][0];
+        mPesos = new float[0][0];
     }
 }

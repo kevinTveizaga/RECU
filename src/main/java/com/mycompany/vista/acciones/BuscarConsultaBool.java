@@ -8,7 +8,6 @@ package com.mycompany.vista.acciones;
 import com.mycompany.recuperacion.Metodo;
 import com.mycompany.recuperacion.MetodoBooleano;
 import com.mycompany.vista.ModeloLista;
-import com.mycompany.vista.ModeloListaTerminos;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextField;
