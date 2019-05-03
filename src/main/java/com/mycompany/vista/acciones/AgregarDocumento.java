@@ -7,6 +7,7 @@ package com.mycompany.vista.acciones;
 
 import com.mycompany.recuperacion.Metodo;
 import com.mycompany.recuperacion.MetodoBooleano;
+import com.mycompany.recuperacion.MetodoProbabilistico;
 import com.mycompany.recuperacion.MetodoVectorial;
 import com.mycompany.vista.ModeloLista;
 import com.mycompany.vista.ModeloListaDocumentos;
@@ -57,6 +58,14 @@ public class AgregarDocumento implements ActionListener {
                 mv.cargarTerminos().forEach((termino) -> {
                     terminos.adElemento(termino);
                 });
+            } else {
+                if (mtd instanceof MetodoProbabilistico) {
+                    MetodoProbabilistico mp = (MetodoProbabilistico) mtd;
+                    terminos.eliminarElementos();
+                    mp.cargarTerminos().forEach((termino) -> {
+                       terminos.adElemento(termino);
+                    });
+                }
             }
         }
     }
@@ -70,7 +79,7 @@ public class AgregarDocumento implements ActionListener {
         }
         file.showOpenDialog(file);
         fileSelected = file.getSelectedFile();
-        if(fileSelected != null) {
+        if(fileSelected != null && fileSelected.isFile()) {
             lastFileSelected = fileSelected.getParentFile();
         }
         if (fileSelected != null) {

@@ -42,15 +42,11 @@ public class BuscarConsultaVecto implements ActionListener{
             vectorial.crearMatrizPesosConsulta();
             List<Documento> resultado = vectorial.calcularSimilaridad();
             if (!resultado.isEmpty()) {
-                if (resultado.size() > 0) {
-                    int cResult = 0;
-                    resultados.eliminarElementos();
-                    while(cResult < resultado.size()) {
-                        resultados.adElemento(resultado.get(cResult).getName());
-                        cResult++;
-                    }
-                }else {
-                    resultados.eliminarElementos();
+                int cResult = 0;
+                resultados.eliminarElementos();
+                while(cResult < resultado.size()) {
+                    resultados.adElemento(resultado.get(cResult).getName());
+                    cResult++;
                 }   
             } else {
                 resultados.eliminarElementos();

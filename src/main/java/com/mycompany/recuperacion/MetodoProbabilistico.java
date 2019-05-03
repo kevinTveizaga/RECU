@@ -88,7 +88,7 @@ public class MetodoProbabilistico implements Metodo{
         return matBin;
     }
 
-    void cargarConsulta(String consulta) {
+    public void cargarConsulta(String consulta) {
         lector.leerConsulta(consulta);
         lector.refinarPalabras();
         lector.getPalabras().stream().filter((cTermino) -> (terminos.contains(cTermino))).forEachOrdered((cTermino) -> {
@@ -110,7 +110,7 @@ public class MetodoProbabilistico implements Metodo{
         return freqTerminConsulta;
     }
 
-    void calcularPeso() {
+    public void calcularPeso() {
         for (String termino : freqTerminConsulta.keySet()) {
             float ni = freqTerminConsulta.get(termino);
             float n = documentos.size();
@@ -125,7 +125,7 @@ public class MetodoProbabilistico implements Metodo{
         return pesos;
     }
 
-    List<Documento> calcSimProb() {
+    public List<Documento> calcSimProb() {
         List<Documento> resultado = new ArrayList<>();
         for (int iDoc = 0; iDoc < documentos.size(); iDoc++) {
             List<String> keys = new ArrayList<>(freqTerminConsulta.keySet());
@@ -147,5 +147,10 @@ public class MetodoProbabilistico implements Metodo{
     @Override
     public List<String> getTerminos() {
         return terminos;
+    }
+
+    public void limpiarResultado() {
+        freqTerminConsulta.clear();
+        pesos.clear();
     }
 }

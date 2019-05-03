@@ -5,6 +5,7 @@
  */
 package com.mycompany.vista;
 
+import com.mycompany.vista.acciones.BuscarConsultaProb;
 import com.mycompany.recuperacion.MetodoBooleano;
 import com.mycompany.recuperacion.MetodoProbabilistico;
 import com.mycompany.recuperacion.MetodoVectorial;
@@ -79,6 +80,7 @@ public class PanelMetodos implements ItemListener {
     private JPanel createBooleanCard() {
         //Create the elements.
         JPanel pnlBooleano = new JPanel(new BorderLayout());
+        pnlBooleano.setBorder(new TitledBorder(BOOLEANO));
         JPanel pnlBuscarBool = new JPanel(new FlowLayout(FlowLayout.LEFT));
         //panel de la lista
         JPanel pnlList = new JPanel();
@@ -134,8 +136,8 @@ public class PanelMetodos implements ItemListener {
         listScrollerResult.setPreferredSize(new Dimension(200, 190));
         pnlResultados.add(listScrollerResult);
         //componentes para buscar la conulta
-        JLabel lblBuscarBool = new JLabel("Buscar: ");
-        JTextField txtFBuscarBool = new JTextField(20);
+        JLabel lblBuscarBool = new JLabel("Consulta: ");
+        JTextField txtFBuscarBool = new JTextField(40);
         JButton buscarDocumento = new JButton(BUSCAR);
         BuscarConsultaBool accionBuscarConsulta = new BuscarConsultaBool(booleano, txtFBuscarBool);
         accionAgregarDocumento.setTerminosList(modListaTerm);
@@ -158,6 +160,7 @@ public class PanelMetodos implements ItemListener {
 
     private JPanel createVectorialMethod() {
         JPanel pnlVectorial = new JPanel(new BorderLayout());
+        pnlVectorial.setBorder(new TitledBorder(VECTORIAL));
         JPanel pnlBuscarVecto = new JPanel(new FlowLayout(FlowLayout.LEFT));
         //panel de la lista de documentos
         JPanel pnlList = new JPanel();
@@ -214,7 +217,7 @@ public class PanelMetodos implements ItemListener {
         pnlResultados.add(listScrollerResult);
         //componentes para buscar la consulta
         JLabel lblBuscarVect = new JLabel("Consulta: ");
-        JTextField txtFBuscarVect = new JTextField(20);
+        JTextField txtFBuscarVect = new JTextField(40);
         JButton buscarConsulta = new JButton(BUSCAR);
         BuscarConsultaVecto actVecto = new BuscarConsultaVecto(vectorial, txtFBuscarVect);
         actAgregarDocumento.setTerminosList(modListaTerm);
@@ -236,18 +239,83 @@ public class PanelMetodos implements ItemListener {
     }
 
     private JPanel createProbCard() {
-        JPanel pnlProb = new JPanel(new BorderLayout());
+        JPanel pnlProbabilistico =  new JPanel(new BorderLayout());
+        pnlProbabilistico.setBorder(new TitledBorder(PROBABILISTICO));
         JPanel pnlBuscarProb = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        JLabel lblBuscarProb = new JLabel("Buscar: ");
-        JTextField txtFBuscarProb = new JTextField(20);
-        JButton agregarDocumentoProb = new JButton(AGREGAR);
-        //agregarDocumentoProb.addActionListener(new AgregarDocumento(probabilistico));
-        //panel de busqueda probabilistico
+        //panel de la lista de documentos
+        JPanel pnlList = new JPanel();
+        pnlList.setLayout(new BoxLayout(pnlList, BoxLayout.Y_AXIS));
+        pnlList.setBorder(new TitledBorder("Documentos"));
+        pnlList.setPreferredSize(new Dimension(200, 200));
+        //lista de documentos
+        JList docList = new JList();
+        ModeloListaDocumentos modLista = new ModeloListaDocumentos(this.probabilistico);
+        docList.setModel(modLista);
+        //panel scroll de la lista
+        JScrollPane listScroller = new JScrollPane(docList);
+        listScroller.setPreferredSize(new Dimension(200, 190));
+        //Panel de botones izquierda
+        JPanel pnlBotones = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        pnlBotones.setPreferredSize(new Dimension(200, 50));
+        //boton agregar palabras vacias
+        JButton btnPalabrasVacias = new JButton(AGREGAR_PALABRAS_VACIAS);
+        btnPalabrasVacias.setToolTipText("agregar palabras vacias");
+        btnPalabrasVacias.addActionListener(new AgregarPalabrasVacias(probabilistico, btnPalabrasVacias));
+        //lista de terminos
+        JList termList = new JList();
+        ModeloLista modListaTerm = new ModeloLista();
+        termList.setModel(modListaTerm);
+        //panel scroll de la lista
+        JScrollPane listScrollerTerm = new JScrollPane(termList);
+        listScrollerTerm.setPreferredSize(new Dimension(200, 190));
+        //boton agregar documento
+        JButton agregarDocumento = new JButton(AGREGAR);
+        AgregarDocumento actAgregarDocumento = new AgregarDocumento(probabilistico, modLista);
+        actAgregarDocumento.setTerminosList(modListaTerm);
+        agregarDocumento.addActionListener(actAgregarDocumento);
+        //agregar al panel de botones izquierda
+        pnlBotones.add(agregarDocumento);
+        pnlBotones.add(btnPalabrasVacias);
+        //Panel de terminos centro
+        JPanel pnlTerminos = new JPanel();
+        pnlTerminos.setLayout(new BoxLayout(pnlTerminos,BoxLayout.Y_AXIS));
+        pnlTerminos.setBorder(new TitledBorder("Terminos"));
+        pnlTerminos.setPreferredSize(new Dimension(200, 200));
+        pnlTerminos.add(listScrollerTerm);
+        //Panel de resultados derecha
+        JPanel pnlResultados = new JPanel();
+        pnlResultados.setLayout(new BoxLayout(pnlResultados, BoxLayout.Y_AXIS));
+        pnlResultados.setBorder(new TitledBorder("Resultados"));
+        pnlResultados.setPreferredSize(new Dimension(200, 200));
+        //lista de resultados
+        JList resultList = new JList();
+        ModeloLista modListaResult = new ModeloLista();
+        resultList.setModel(modListaResult);
+        //panel scroll de los resultados 
+        JScrollPane listScrollerResult = new JScrollPane(resultList);
+        listScrollerResult.setPreferredSize(new Dimension(200, 190));
+        pnlResultados.add(listScrollerResult);
+        //componentes para buscar la consulta
+        JLabel lblBuscarProb = new JLabel("Consulta: ");
+        JTextField txtFBuscarProb = new JTextField(40);
+        JButton buscarConsulta = new JButton(BUSCAR);
+        BuscarConsultaProb actProb=  new BuscarConsultaProb(probabilistico, txtFBuscarProb);
+        actAgregarDocumento.setTerminosList(modListaTerm);
+        actProb.setResultList(modListaResult);
+        buscarConsulta.addActionListener(actProb);
+        //panel de busqueda vectorial
         pnlBuscarProb.add(lblBuscarProb);
         pnlBuscarProb.add(txtFBuscarProb);
-        pnlBuscarProb.add(agregarDocumentoProb);
-        pnlProb.add(pnlBuscarProb);
-        return pnlProb;
+        pnlBuscarProb.add(buscarConsulta);
+        //agregar al panel de la lista
+        pnlList.add(listScroller);
+        pnlList.add(pnlBotones);
+             
+        pnlProbabilistico.add(pnlBuscarProb, BorderLayout.PAGE_START);
+        pnlProbabilistico.add(pnlList, BorderLayout.LINE_START);
+        pnlProbabilistico.add(pnlTerminos, BorderLayout.CENTER);
+        pnlProbabilistico.add(pnlResultados, BorderLayout.LINE_END);
+        return pnlProbabilistico;
     }
 
     @Override
