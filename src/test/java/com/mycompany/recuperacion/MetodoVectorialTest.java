@@ -56,7 +56,7 @@ public class MetodoVectorialTest {
         List<String> result = metodo.cargarTerminos();
         List<String> expected = new ArrayList<>(Arrays.asList(
                 "historia", "mundos", "anillo", "unico",
-                "parte", "vivo", "residia",
+                "vivo", "residia",
                 "conocido", "necesario", "dramatica"));
         assertArrayEquals(result.toArray(), expected.toArray());
     }
@@ -81,7 +81,6 @@ public class MetodoVectorialTest {
             {1, 0, 0, 0},
             {1, 1, 0, 0},
             {1, 0, 0, 0},
-            {0, 1, 1, 1},
             {0, 0, 1, 0},
             {0, 0, 1, 0},
             {0, 0, 0, 1},
@@ -99,7 +98,6 @@ public class MetodoVectorialTest {
         expected.put("mundos", 1);
         expected.put("anillo", 2);
         expected.put("unico", 1);
-        expected.put("parte", 3);
         expected.put("vivo", 1);
         expected.put("residia", 1);
         expected.put("conocido", 1);
@@ -119,7 +117,6 @@ public class MetodoVectorialTest {
             {0.602f, 0.0f, 0.0f, 0.0f},
             {0.301f, 0.301f, 0.0f, 0.0f},
             {0.602f, 0.0f, 0.0f, 0.0f},
-            {0.0f, 0.125f, 0.125f, 0.125f},
             {0.0f, 0.0f, 0.602f, 0.0f},
             {0.0f, 0.0f, 0.602f, 0.0f},
             {0.0f, 0.0f, 0.0f, 0.602f},
@@ -144,7 +141,6 @@ public class MetodoVectorialTest {
         {0},
         {1},
         {0},
-        {1},
         {0},
         {0},
         {0},
@@ -171,7 +167,6 @@ public class MetodoVectorialTest {
         {0.0f},
         {0.301f},
         {0.0f},
-        {0.125f},
         {0.0f},
         {0.0f},
         {0.0f},
@@ -192,7 +187,7 @@ public class MetodoVectorialTest {
         metodo.calcularSimilaridad().forEach((doc) -> {
             resultado.add(doc.getName());
         });
-        List<String> expected = new ArrayList<>(Arrays.asList("D1", "D2", "D3", "D4"));
+        List<String> expected = new ArrayList<>(Arrays.asList("D1", "D2"));
         assertArrayEquals(expected.toArray(), resultado.toArray());
     }
     
@@ -208,7 +203,7 @@ public class MetodoVectorialTest {
         metodo.calcularSimilaridad().forEach((doc) -> {
             resultado.add(doc.getName());
         });
-        List<String> expected = new ArrayList<>(Arrays.asList("D4", "D2", "D3"));
+        List<String> expected = new ArrayList<>(Arrays.asList("D4"));
         assertArrayEquals(expected.toArray(), resultado.toArray());
     }
     
@@ -224,7 +219,7 @@ public class MetodoVectorialTest {
         metodo.calcularSimilaridad().forEach((doc) -> {
             resultado.add(doc.getName());
         });
-        List<String> expected = new ArrayList<>(Arrays.asList("D3", "D2", "D4"));
+        List<String> expected = new ArrayList<>(Arrays.asList("D3"));
         assertArrayEquals(expected.toArray(), resultado.toArray());
     }
     
@@ -260,7 +255,7 @@ public class MetodoVectorialTest {
         metodo.calcularSimilaridad().forEach((doc) -> {
             resultado.add(doc.getName());
         });
-        List<String> expected = new ArrayList<>(Arrays.asList("D5","D3","D4","D2"));
+        List<String> expected = new ArrayList<>(Arrays.asList("D5","D3","D4"));
         assertArrayEquals(expected.toArray(), resultado.toArray());
     }
 }

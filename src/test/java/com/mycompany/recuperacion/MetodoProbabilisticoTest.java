@@ -60,8 +60,7 @@ public class MetodoProbabilisticoTest {
     public void testCargarTerminos() {
         List<String> result = metodo.cargarTerminos();
         List<String> expected = new ArrayList<>(Arrays.asList(
-                "historia", "mundos", "anillo", "unico",
-                "parte", "vivo", "residia",
+                "historia", "mundos", "anillo", "unico", "vivo", "residia",
                 "conocido", "necesario", "dramatica"));
         assertArrayEquals(expected.toArray(), result.toArray());
     }
@@ -81,7 +80,6 @@ public class MetodoProbabilisticoTest {
             {1, 0, 0, 0},
             {1, 1, 0, 0},
             {1, 0, 0, 0},
-            {0, 1, 1, 1},
             {0, 0, 1, 0},
             {0, 0, 1, 0},
             {0, 0, 0, 1},
@@ -95,8 +93,8 @@ public class MetodoProbabilisticoTest {
         String consulta = "un ser vivo que residia en una parte del anillo y dramatica";
         metodo.cargarConsulta(consulta);
         Map<String, Integer> result = metodo.getFreqTermConsultas();
-        Object[] expected = {1,1,2,3,1};
-        String[] terminos = {"dramatica","residia","anillo","parte", "vivo"};
+        Object[] expected = {1,1,2,1};
+        String[] terminos = {"dramatica","residia","anillo", "vivo"};
         assertArrayEquals(expected,result.values().toArray());
         assertArrayEquals(terminos, result.keySet().toArray());
     }
@@ -108,7 +106,7 @@ public class MetodoProbabilisticoTest {
         metodo.cargarConsulta(consulta);
         metodo.calcularPeso();
         List<Float> pesos = metodo.getPesos();
-        List<Float> expected = new ArrayList<>(Arrays.asList(0.477f,0.477f,0.0f,-0.477f,0.477f));
+        List<Float> expected = new ArrayList<>(Arrays.asList(0.477f,0.477f,0.0f,0.477f));
         assertArrayEquals(expected.toArray(), pesos.toArray());
     }
     @Test
@@ -121,7 +119,7 @@ public class MetodoProbabilisticoTest {
         metodo.calcSimProb().forEach((doc) -> {
             resultado.add(doc.getName());
         });
-        String[] expected = {"D3","D2"};
+        String[] expected = {"D3","D4"};
         assertArrayEquals(expected, resultado.toArray());
     }
     @Test
@@ -194,6 +192,6 @@ public class MetodoProbabilisticoTest {
         String[] expected = {"D4"};
         assertArrayEquals(expected, resultado.toArray());
     }
-    
+      
     
 }

@@ -58,7 +58,7 @@ public class MetodoBooleanoTest {
         List<String> result = metodo.eliminarRepetidos();
         List<String> expected = new ArrayList<>(Arrays.asList(
                 "historia", "mundos", "anillo", "unico",
-                "parte", "vivo", "residia",
+                "vivo", "residia",
                 "conocido", "necesario", "dramatica"));
         assertArrayEquals(result.toArray(), expected.toArray());
     }
@@ -77,7 +77,6 @@ public class MetodoBooleanoTest {
             {1, 0, 0, 0},
             {1, 1, 0, 0},
             {1, 0, 0, 0},
-            {0, 1, 1, 1},
             {0, 0, 1, 0},
             {0, 0, 1, 0},
             {0, 0, 0, 1},
@@ -112,7 +111,7 @@ public class MetodoBooleanoTest {
         metodo.crearMatriz();
         String consulta = "( anillo and parte ) or ( unico or historia )";
         String[] resultado = metodo.consultar(consulta);
-        String[] expected = {"D1","D2"};
+        String[] expected = {};
         assertArrayEquals(expected, resultado);
     }
     
@@ -124,8 +123,8 @@ public class MetodoBooleanoTest {
         String[] resultado = metodo.consultar(consulta);
         metodo.limpiarResultado();
         String[] resultado2 = metodo.consultar(consulta);
-        String[] expected = {"D1","D2"};
-        String[] expected2 = {"D1","D2"};
+        String[] expected = {};
+        String[] expected2 = {};
         assertArrayEquals(expected, resultado);
         assertArrayEquals(expected2, resultado2);
     }
@@ -146,7 +145,7 @@ public class MetodoBooleanoTest {
         metodo.crearMatriz();
         String consulta = "anillo and ( unico or parte ) and mundos";
         String[] resultado = metodo.consultar(consulta);
-        String[] expected = {"D1"};
+        String[] expected = {};
         assertArrayEquals(expected, resultado);
     }
     
